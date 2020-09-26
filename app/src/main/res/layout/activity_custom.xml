@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomActivity">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineleft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="24dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="24dp" />
+
+
+<!--    Textfelder für den Unternehmer-->
+
+    <RadioButton
+        android:id="@+id/radioButtonUnternehmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Unternehmer"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="80dp"
+        android:maxLines="1"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/Name"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etAdresseUnternehm"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="120dp"
+        android:maxLines="1"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/Adresse"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etPLZUndStadt"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:maxLines="1"
+        android:layout_marginTop="160dp"
+        android:background="@drawable/textviewborder"
+        android:hint="Postleitzahl und die Stadt"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etSteuernummer"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/textviewborder"
+        android:hint="Steuernummer"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etDatum"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="240dp"
+        android:background="@drawable/textviewborder"
+        android:hint="Datum"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+<!--    Textfelder für die Privatperson-->
+
+
+    <RadioButton
+        android:id="@+id/radioButtonPrivatPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:text="PrivatPerson"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etNamePrivat"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="360dp"
+        android:maxLines="1"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/Name"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etAdressePrivat"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="400dp"
+        android:maxLines="1"
+        android:background="@drawable/textviewborder"
+        android:hint="Adresse"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etPLZUndStadtPrivat"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="440dp"
+        android:maxLines="1"
+        android:background="@drawable/textviewborder"
+        android:hint="Postleitzahl und die Stadt"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etPersonalAusweis"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="480dp"
+        android:maxLines="3"
+        android:background="@drawable/textviewborder"
+        android:hint="Personal.-Ausweis Nr"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etDatumPrivat"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="520dp"
+        android:background="@drawable/textviewborder"
+        android:hint="Datum"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="580dp"
+        android:text="Weiter zur Unterschrift"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

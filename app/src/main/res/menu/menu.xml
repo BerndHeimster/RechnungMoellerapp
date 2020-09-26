@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item
+            android:id="@+id/rechnung"
+            android:icon="@drawable/rechnung"
+            android:title="Rechnung" />
+        <item
+            android:id="@+id/abrechnung"
+            android:icon="@drawable/euro"
+            android:title="Abrechnung" />
+    <item
+        android:id="@+id/drucken"
+        android:icon="@drawable/printicon"
+        android:title="Drucken" />
+
+</menu>

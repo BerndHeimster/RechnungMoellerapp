@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Schrotthandel M.Möller</string>
+
+    <string name="file_provider_authority" translatable="false">de.janoroid.rechnungmoeller.provider</string>
+
+    <string name="Name"> Name</string>
+    <string name="Dienstleistungen"> Dienstleistungen</string>
+    <string name="Datum"> Datum</string>
+    <string name="MwST"> Mehrwertsteuer</string>
+    <string name="Gesamtsumme"> Gesamtsumme</string>
+    <string name="Menge"> Menge</string>
+    <string name="Adresse"> Adresse</string>
+    <string name="Erstellen">Erstellen</string>
+    <string name="Löschen">Löschen</string>
+    <string name="Gewicht"> Gewicht in Kg</string>
+    <string name="Preiskg"> Preis/Kg</string>
+    <string name="Betrag"> Betrag</string>
+
+
+    <string-array name="metalle">
+
+        <item>Schrott,Stanzabfälle</item>
+        <item>E-Motore</item>
+        <item>Sperrschrott</item>
+        <item>Schredder-Vormaterial</item>
+        <item>Guss</item>
+        <item>Späne Aluminium kehrreste (Verschmutzt)</item>
+        <item>Kabel</item>
+        <item>Kupfer,leicht,Drahr,schwer</item>
+        <item>Messing,schwer,leicht,Spähne</item>
+        <item>Aluminium Guß</item>
+        <item>Aluminium,neu,Profile</item>
+        <item>Aluminium-Schredder</item>
+        <item>Zink</item>
+        <item>blei</item>
+        <item>VA</item>
+        <item>Kupfer</item>
+    </string-array>
+
+
+</resources>
+

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".RechnungFragment">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineleft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="24dp" />
+
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:maxLines="1"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/Name"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <EditText
+        android:id="@+id/etAdresse"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:maxLines="1"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/Adresse"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etPLZUndStadt"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:maxLines="1"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/textviewborder"
+        android:hint="Postleitzahl und die Stadt"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/etDatum"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/Datum"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etMwSt"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="170dp"
+        android:maxLines="1"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/MwST"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etDienstleistung"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="210dp"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/Dienstleistungen"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etMenge"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="320dp"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/Menge"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etSumme"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="430dp"
+        android:background="@drawable/textviewborder"
+        android:hint="@string/Gesamtsumme"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/btSenden"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="540dp"
+        android:text="@string/Erstellen"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btLöschen"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="540dp"
+        android:layout_marginEnd="200dp"
+        android:text="@string/Löschen"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@id/guidelineright"
+        app:layout_constraintStart_toEndOf="@id/guidelineleft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
