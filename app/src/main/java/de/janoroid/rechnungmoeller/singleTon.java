@@ -186,7 +186,7 @@ class singleTon {
         return SchrottBetrag.get(pos);
     }
     public void setSchrottBetrag(String st) {
-        SchrottGewicht.add(st);
+        SchrottBetrag.add(st);
     }
 
     public void setSchrottBetragKgDell(){
@@ -422,7 +422,7 @@ class singleTon {
     public String getKabelGewicht(int pos) {
         return KabelGewicht.get(pos);
     }
-    public void getKabelGewicht(String st) {
+    public void setKabelGewicht(String st) {
         KabelGewicht.add(st);
     }
     public void getKabelGewichtDell(){

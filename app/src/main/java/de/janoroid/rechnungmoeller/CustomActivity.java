@@ -35,12 +35,12 @@ public class CustomActivity extends AppCompatActivity {
 
 
         // Die Edittext-Felder für den Unternehmer
-        etNameUnternehm =  (EditText) findViewById(R.id.etName);
-        etStadtUnternehm = (EditText) findViewById(R.id.etPLZUndStadt);
-        etAdresseUnternehm = (EditText) findViewById(R.id.etAdresseUnternehm);
-        etSteuernummer =   (EditText)   findViewById(R.id.etSteuernummer);
-        etDatumUnternehm = (EditText)  findViewById(R.id.etDatum);
-        rbUnternehm = (RadioButton) findViewById(R.id.radioButtonUnternehmer);
+        etNameUnternehm = findViewById(R.id.etName);
+        etStadtUnternehm = findViewById(R.id.etPLZUndStadt);
+        etAdresseUnternehm = findViewById(R.id.etAdresseUnternehm);
+        etSteuernummer = findViewById(R.id.etSteuernummer);
+        etDatumUnternehm = findViewById(R.id.etDatum);
+        rbUnternehm = findViewById(R.id.radioButtonUnternehmer);
 
 
 
@@ -48,15 +48,15 @@ public class CustomActivity extends AppCompatActivity {
 
         // Die Edittext-Felder für den Unternehmer
 
-        etNamenPrivat = (EditText) findViewById(R.id.etNamePrivat);
-        etAdressePrivat = (EditText) findViewById(R.id.etAdressePrivat);
-        etStadtPrivat = (EditText) findViewById(R.id.etPLZUndStadtPrivat);
-        etPersonalausweis = (EditText) findViewById(R.id.etPersonalAusweis);
-        etDatumPrivat = (EditText) findViewById(R.id.etDatumPrivat);
-        rbPrivat = (RadioButton) findViewById(R.id.radioButtonPrivatPerson);
+        etNamenPrivat = findViewById(R.id.etNamePrivat);
+        etAdressePrivat = findViewById(R.id.etAdressePrivat);
+        etStadtPrivat = findViewById(R.id.etPLZUndStadtPrivat);
+        etPersonalausweis = findViewById(R.id.etPersonalAusweis);
+        etDatumPrivat = findViewById(R.id.etDatumPrivat);
+        rbPrivat = findViewById(R.id.radioButtonPrivatPerson);
 
 
-        WeiterBtn = (Button) findViewById(R.id.button);
+        WeiterBtn = findViewById(R.id.button);
 
 
         //Falls der Radiobutton Unternehm angeklickt wurde,dann werden die Textfelder von der PrivatPerson ausgeblendet

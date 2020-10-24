@@ -10,7 +10,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.itextpdf.text.BadElementException;
@@ -32,7 +31,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,14 +38,14 @@ public class CreatePdf extends AppCompatActivity {
 
     private String Steuernummer, NameUnternehm, AdresseUnternehm, PLZStadtUnternehm, DatumUnternehm;
 
-    private String NamePrivat, AdressePrivat, PLZPrivat, PersonalAusweis, DatumPrivat,
-            EMotir;
+    private String NamePrivat, AdressePrivat, PLZPrivat, PersonalAusweis, DatumPrivat;
 
     private Document document = new Document();
 
     private   Paragraph InfoPrivatPerson,InfoUnternehm;
 
     private TextView tvFileName;
+
 
     private singleTon singleTonClass = singleTon.getInstance();
 
@@ -63,7 +61,7 @@ public class CreatePdf extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pdf);
 
-        tvFileName = (TextView) findViewById(R.id.tvFileName);
+        tvFileName = findViewById(R.id.tvFileName);
 
         try {
             getCustomInformation();
@@ -90,9 +88,6 @@ public class CreatePdf extends AppCompatActivity {
         PersonalAusweis = pref.getString("PersonalAusweis", "");
         DatumPrivat = pref.getString("Datum", "");
 
-
-        SharedPreferences pref1 = getSharedPreferences("Edit", MODE_PRIVATE);
-        EMotir = pref1.getString("E-Motoren", "");
 
         CreateDocument();
 
@@ -182,31 +177,6 @@ public class CreatePdf extends AppCompatActivity {
         document.add(InfoPrivatPerson);
         document.add(PrivatPersonAdresse);
 
-
-
-
-
-        for (String object: singleTonClass.getSchrottGewicht()) {
-            System.out.println("Schrott"+ object);
-
-            String schrott = "Schrott";
-            Log.d(schrott,object);
-        }
-
-
-
-        for (String object: singleTonClass.getEMotorGewicht()) {
-
-            String EMotor = "Motor";
-            Log.d(EMotor,object);
-        }
-
-        for (String object : singleTonClass.getGussBetrag())
-        {
-            System.out.println("Guss" + object);
-
-
-        }
 
 
         CreateTable();
@@ -446,11 +416,9 @@ public class CreatePdf extends AppCompatActivity {
 
         document.close();
 
-        tvFileName.setText("Der Name der Datei: "  + "\n" + "/PDF-Moeller/Abrechnung/" + NameUnternehm + NamePrivat+"-Abrechnung.pdf");
+        tvFileName.setText("Der Name der Datei: " + "/PDF-Moeller/Abrechnung/" + NameUnternehm + NamePrivat+"-Abrechnung.pdf");
         tvFileName.setTextSize(16);
 
-
-        BackToMainPage();
 
     }
 
@@ -488,11 +456,10 @@ public class CreatePdf extends AppCompatActivity {
     }
 
 
-    private void BackToMainPage() throws InterruptedException {
+    private void BackToMainPage() {
 
 
         // Der User muss drei Sekunden warten,dann wird er zurück in die MainActivity geleitet
-        TimeUnit.SECONDS.sleep(5);
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
         finish();

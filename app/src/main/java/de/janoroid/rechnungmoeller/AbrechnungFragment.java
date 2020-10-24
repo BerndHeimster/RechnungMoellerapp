@@ -15,31 +15,37 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.Button;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AbrechnungFragment extends Fragment {
 
-    private Font SchriftgrößeHeader = FontFactory.getFont(FontFactory.TIMES_ROMAN, 12,Font.BOLD);
-    private  Font SchriftgrößeTitel = FontFactory.getFont(FontFactory.TIMES_ROMAN, 16,Font.BOLD);
     private View view;
     private LinearLayout linearLayout;
 
-    private Spinner spinner;
-    private EditText etBetrag,etPreisKg,etGewicht;
-
-
     private singleTon singleTonClass = singleTon.getInstance();
 
+    private ArrayList<String> Metalle = new ArrayList<>();
 
-    private ArrayList<String> Metalle= new ArrayList<>();
-
-    private int Selecteditem;
 
     private Button KundenInfobt;
 
+
+    //Die Arrays für die EditText-Felder
+    final EditText[] etBetrag = new EditText[16];
+    final EditText[] etPreisKg = new EditText[16];
+    final EditText[] etGewicht = new EditText[16];
+    final Spinner[] spinner = new Spinner[16];
+
+    //Die Listen
+
+   private List<Integer> lastValue = new ArrayList<Integer>();
+
+    private List<Integer> lastValueFromI = new ArrayList<Integer>();
+
+
+    private int i;
 
 
 
@@ -53,7 +59,7 @@ public class AbrechnungFragment extends Fragment {
         getActivity().setTitle("Abrechnung schreiben");
 
 
-        Metalle.add("Wähle eine Sorte aus!");
+        Metalle.add("Bitte Auswählen");
         Metalle.add("Schrott,Stanzabfälle");
         Metalle.add("E-Motore");
         Metalle.add("Sperrschrott");
@@ -90,241 +96,271 @@ public class AbrechnungFragment extends Fragment {
                 String HowManyColumns = AnswerEditext.getText().toString();
 
 
-                    //Der String wird in ein Integer umgewandelt
-                    int NumberOfColumns = Integer.parseInt(HowManyColumns);
+                //Der String wird in ein Integer umgewandelt
+                int NumberOfColumns = Integer.parseInt(HowManyColumns);
 
-                    //Hier werden die EditText-Felder und Spinners generiert
+                //Hier werden die EditText-Felder und Spinners generiert
 
-                        for (int i = 1; i <= NumberOfColumns; i++) {
+                for (i = 1; i <= NumberOfColumns; i++) {
 
-                            linearLayout = view.findViewById(R.id.linear);
+                    linearLayout = view.findViewById(R.id.linear);
 
-                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                            layoutParams.setMargins(0, 70, 0, 0);
+                    layoutParams.setMargins(0, 70, 0, 0);
 
+                    etBetrag[i] = new EditText(getActivity());
+                    etGewicht[i] = new EditText(getActivity());
+                    etPreisKg[i] = new EditText(getActivity());
+                    spinner[i] = new Spinner(getActivity());
 
-                            etPreisKg = new EditText(getActivity());
-                            etGewicht = new EditText(getActivity());
-                            etBetrag = new EditText(getActivity());
-                            spinner = new Spinner(getActivity());
-                            KundenInfobt = new Button(getActivity());
+                    KundenInfobt = new Button(getActivity());
 
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, Metalle);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner[i].setId((getId()+ i));
+                    spinner[i].setAdapter(adapter);
+                    linearLayout.addView(spinner[i], layoutParams);
 
-                            spinner.setId(i);
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, Metalle);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinner.setAdapter(adapter);
+                    etGewicht[i].setHint(R.string.Preiskg);
+                    etGewicht[i].setId((getId()+ i));
+                    etGewicht[i].setSaveEnabled(false);
+                    etGewicht[i].setBackgroundResource(R.drawable.textviewborder);
+                    linearLayout.addView(etGewicht[i], layoutParams);
 
+                    etPreisKg[i].setBackgroundResource(R.drawable.textviewborder);
+                    etPreisKg[i].setHint(R.string.Gewicht);
+                    etPreisKg[i].setId((getId()+ i));
+                    etPreisKg[i].setSaveEnabled(false);
+                    linearLayout.addView(etPreisKg[i], layoutParams);
 
-                            linearLayout.addView(spinner, layoutParams);
-
-                            etPreisKg.setId(i);
-                            etPreisKg.setHint(R.string.Preiskg);
-                            etPreisKg.setBackgroundResource(R.drawable.textviewborder);
-                            linearLayout.addView(etPreisKg, layoutParams);
-
-                            etGewicht.setId(i);
-                            etGewicht.setBackgroundResource(R.drawable.textviewborder);
-                            etGewicht.setHint(R.string.Gewicht);
-                            linearLayout.addView(etGewicht, layoutParams);
-
-                            etBetrag.setId(i);
-                            etBetrag.setBackgroundResource(R.drawable.textviewborder);
-                            etBetrag.setHint(R.string.Betrag);
-                            linearLayout.addView(etBetrag, layoutParams);
-                        }
-
+                    etBetrag[i].setBackgroundResource(R.drawable.textviewborder);
+                    etBetrag[i].setHint(R.string.Betrag);
+                    etBetrag[i].setId((getId()+ i));
+                    etBetrag[i].setSaveEnabled(false);
+                    linearLayout.addView(etBetrag[i], layoutParams);
 
 
-                KundenInfobt.setText("Kundeninformationen");
+                        spinner[i].setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+                            @Override
+                            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+
+                                //Hier werden die ausgewählten Item gepeichert
+                                lastValue.add(position);
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parentView) {
+                                // your code here
+                            }
+
+                        });
+
+
+                        //Hier wird die Zählervariable gespeichert
+
+                    lastValueFromI.add(i);
+
+
+
+
+                    KundenInfobt.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+
+                         //Hier wird die Zählervariable ausgegeben,damit mehrere Listener erstellt werden können
+
+                            for (int h = 1; h < lastValueFromI.size(); h++) {
+
+                                System.out.println("H-for" + h);
+
+
+
+                                //Hier werden die ausgewähltem Item ausgegeben
+
+                                for (int k = 0; k < lastValue.size(); k++) {
+                                    System.out.println("for-K " + k);
+
+
+
+                                    switch (spinner[lastValueFromI.get(h)].getItemAtPosition(lastValue.get(k)).toString()) {
+
+
+                                        case "Schrott,Stanzabfälle":
+
+
+                                            singleTonClass.setSchrottPreisKg(etPreisKg[h].getText().toString());
+                                            singleTonClass.setSchrottGewicht(etGewicht[h].getText().toString());
+                                            singleTonClass.setSchrottBetrag(etBetrag[h].getText().toString());
+
+
+                                            break;
+
+
+                                        case "E-Motore":
+
+
+                                            singleTonClass.setEMotorPreisKg(etPreisKg[h].getText().toString());
+                                            singleTonClass.setEMotorGewicht(etGewicht[h].getText().toString());
+                                            singleTonClass.setEMotorBetrag(etBetrag[h].getText().toString());
+
+
+                                            break;
+
+                                        case "Sperrschrott":
+
+                                            singleTonClass.setSperrPreisKg(etPreisKg[h].getText().toString());
+                                            singleTonClass.setSperrGewicht(etGewicht[h].getText().toString());
+                                            singleTonClass.setSperrBetrag(etBetrag[h].getText().toString());
+
+
+                                            break;
+
+                                        case "Schredder-Vormaterial":
+
+                                            singleTonClass.setSchredderPreisKg(etPreisKg[h].getText().toString());
+                                            singleTonClass.setSchredderGewicht(etGewicht[h].getText().toString());
+                                            singleTonClass.setSchredderBetrag(etBetrag[h].getText().toString());
+
+
+                                            break;
+
+                                        case "Guß":
+
+                                            singleTonClass.setGussPreisKg(etPreisKg[h].getText().toString());
+                                            singleTonClass.setGussGewicht(etGewicht[h].getText().toString());
+                                            singleTonClass.setGussBetrag(etBetrag[h].getText().toString());
+
+                                            break;
+
+
+                            /*            case "Späne Aluminium kehrreste (Verschmutzt":
+
+                                            singleTonClass.setSpaenePreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setSpaeneGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setSpaeneBetrag(etBetrag.getText().toString());
+
+
+                                            break;
+
+                                        case "Kabel":
+
+                                            singleTonClass.setKabelPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setKabelGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setKabelBetrag(etBetrag.getText().toString());
+
+                                            break;
+
+                                        case "Kupfer,leicht,Drahr,schwer":
+
+                                            singleTonClass.setKupferLeichtPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setKupferLeichtGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setKupferLeichtBetrag(etBetrag.getText().toString());
+
+                                            break;
+
+                                        case "Messing,schwer,leicht,Spähne":
+
+
+                                            singleTonClass.setMessingPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setMessingGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setMessingBetrag(etBetrag.getText().toString());
+
+                                            break;
+
+                                        case "Aluminium Guß":
+
+                                            singleTonClass.setAluPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setAluGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setAluBetrag(etBetrag.getText().toString());
+
+                                            break;
+
+                                        case "Aluminium,neu,Profile":
+
+                                            singleTonClass.setAluNeuPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setAluNeuGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setAluNeuBetrag(etBetrag.getText().toString());
+
+
+                                            break;
+
+                                        case "Aluminium-Schredder":
+
+                                            singleTonClass.setALuSchrederPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setAluSchredderGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setAluSchredderBetrag(etBetrag.getText().toString());
+
+
+                                            break;
+
+                                        case "Zink":
+
+                                            singleTonClass.setZinkPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setZinkGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setZinkBetrag(etBetrag.getText().toString());
+
+
+                                            break;
+
+                                        case "Blei":
+
+                                            singleTonClass.setBleiPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setBleiGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setBleiBetrag(etBetrag.getText().toString());
+
+
+                                            break;
+
+                                        case "VA":
+
+                                            singleTonClass.setVAPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setVAGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setVAGewicht(etBetrag.getText().toString());
+
+
+                                            break;
+
+                                        case "Kupfer":
+
+                                            singleTonClass.setKupferPreisKg(etPreisKg.getText().toString());
+                                            singleTonClass.setKupferGewicht(etGewicht.getText().toString());
+                                            singleTonClass.setKupferBetrag(etBetrag.getText().toString());
+
+
+                                            break;
+*/
+
+
+                                        default:
+
+                                    }
+
+                                    }
+
+                                }
+                                // Der User wird weitergeleitet zur der nächste Activity
+
+                                Intent intent = new Intent(getActivity(), CustomActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+
+                            }
+                    });
+
+
+                }
+
+
+                KundenInfobt.setText("Zu den Kundeninformationen");
                 linearLayout.addView(KundenInfobt);
 
-                  // Das ausgewählte Item wird in die Variable Selecteditem gespeichert
-
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-                        Selecteditem = position;
-
-
-
-
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        // your code here
-                    }
-
-                });
-
-
-                // Beim drücken des Buttons werden die Werte in die Klasse SingleTon weitergeleitet,damit die Daten weiter verarbeitet werden können.
-
-                KundenInfobt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        switch (spinner.getItemAtPosition(Selecteditem).toString()) {
-
-                            case "Schrott,Stanzabfälle":
-
-
-                                singleTonClass.setSchrottPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setSchrottGewicht(etGewicht.getText().toString());
-                                singleTonClass.setSchrottBetrag(etBetrag.getText().toString());
-
-                                break;
-
-                            case "E-Motore":
-
-                                singleTonClass.setEMotorPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setEMotorGewicht(etGewicht.getText().toString());
-                                singleTonClass.setEMotorBetrag(etBetrag.getText().toString());
-
-                                break;
-
-                            case "Sperrschrott":
-
-                                singleTonClass.setSperrPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setSperrGewicht(etGewicht.getText().toString());
-                                singleTonClass.setSperrBetrag(etBetrag.getText().toString());
-
-
-                                break;
-
-                            case "Schredder-Vormaterial":
-
-                                singleTonClass.setSchredderPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setSchredderGewicht(etGewicht.getText().toString());
-                                singleTonClass.setSchredderBetrag(etBetrag.getText().toString());
-
-
-                                break;
-
-                            case "Guß":
-
-                                singleTonClass.setGussPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setGussGewicht(etGewicht.getText().toString());
-                                singleTonClass.setGussBetrag(etBetrag.getText().toString());
-
-                                break;
-
-
-                            case "Späne Aluminium kehrreste (Verschmutzt":
-
-                                singleTonClass.setSpaenePreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setSpaeneGewicht(etGewicht.getText().toString());
-                                singleTonClass.setSpaeneBetrag(etBetrag.getText().toString());
-
-
-                                break;
-
-                            case "Kabel":
-
-                                singleTonClass.setKabelPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.getKabelGewicht(etGewicht.getText().toString());
-                                singleTonClass.setKabelBetrag(etBetrag.getText().toString());
-
-                                break;
-
-                            case "Kupfer,leicht,Drahr,schwer":
-
-                                singleTonClass.setKupferLeichtPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setKupferLeichtGewicht(etGewicht.getText().toString());
-                                singleTonClass.setKupferLeichtBetrag(etBetrag.getText().toString());
-
-                                break;
-
-                            case "Messing,schwer,leicht,Spähne":
-
-
-                                singleTonClass.setMessingPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setMessingGewicht(etGewicht.getText().toString());
-                                singleTonClass.setMessingBetrag(etBetrag.getText().toString());
-
-                                break;
-
-                            case "Aluminium Guß":
-
-                                singleTonClass.setAluPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setAluGewicht(etGewicht.getText().toString());
-                                singleTonClass.setAluBetrag(etBetrag.getText().toString());
-
-                                break;
-
-                            case "Aluminium,neu,Profile":
-
-                                singleTonClass.setAluNeuPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setAluNeuGewicht(etGewicht.getText().toString());
-                                singleTonClass.setAluNeuBetrag(etBetrag.getText().toString());
-
-
-                                break;
-
-                            case "Aluminium-Schredder":
-
-                                singleTonClass.setALuSchrederPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setAluSchredderGewicht(etGewicht.getText().toString());
-                                singleTonClass.setAluSchredderBetrag(etBetrag.getText().toString());
-
-
-                                break;
-
-                            case "Zink":
-
-                                singleTonClass.setZinkPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setZinkGewicht(etGewicht.getText().toString());
-                                singleTonClass.setZinkBetrag(etBetrag.getText().toString());
-
-
-                                break;
-
-                            case "Blei":
-
-                                singleTonClass.setBleiPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setBleiGewicht(etGewicht.getText().toString());
-                                singleTonClass.setBleiBetrag(etBetrag.getText().toString());
-
-
-                                break;
-
-                            case "VA":
-
-                                singleTonClass.setVAPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setVAGewicht(etGewicht.getText().toString());
-                                singleTonClass.setVAGewicht(etBetrag.getText().toString());
-
-
-                                break;
-
-                            case "Kupfer":
-
-                                singleTonClass.setKupferPreisKg(etPreisKg.getText().toString());
-                                singleTonClass.setKupferGewicht(etGewicht.getText().toString());
-                                singleTonClass.setKupferBetrag(etBetrag.getText().toString());
-
-
-                                break;
-
-
-                            default:
-
-
-                        }
-
-                        // Der User wird weitergeleitet zur der nächste Activity
-
-                        Intent intent = new Intent(getActivity(), CustomActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-
-                    }
-                });
 
             }
 
@@ -349,11 +385,5 @@ public class AbrechnungFragment extends Fragment {
 
     }
 
-
-
 }
-
-
-
-
 
